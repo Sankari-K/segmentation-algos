@@ -91,7 +91,7 @@ def get_segmented_image(image, k):
     
 
 # visualization()
-get_segmented_image("image.jpg", 15)
+get_segmented_image("tree.jpg", 12)
 
 
 
