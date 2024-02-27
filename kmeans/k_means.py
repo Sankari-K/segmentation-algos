@@ -1,10 +1,10 @@
 # imports
-import numpy as np
-from sklearn.datasets import make_blobs
-from collections import defaultdict
-import matplotlib.pyplot as plt
-import random
-import cv2
+import numpy as np # for handling image data
+from sklearn.datasets import make_blobs # to generate data points for some visualizations
+from collections import defaultdict  # to store cluster information
+import matplotlib.pyplot as plt  # for plotting
+import random  # to initialize randomly generated clusters
+import cv2 # converts image to pixel values
 
 # select k centroids
 def get_initial_centroids(X, k):
