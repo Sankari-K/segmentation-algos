@@ -53,4 +53,4 @@ def get_segmented_image(image, bandwidth=5):
     plt.savefig('segmented_image1.png')
     plt.show()
 
-get_segmented_image("image1.png", bandwidth=25)
+get_segmented_image("../dataset/01.jpg", bandwidth=25)

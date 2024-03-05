@@ -86,12 +86,25 @@ def get_segmented_image(image, k):
 
     segmented_image = np.reshape(X_segmented, (height, width, depth))
     plt.imshow(cv2.cvtColor(segmented_image, cv2.COLOR_BGR2RGB))
-    plt.savefig('segmented_image.png')
+    plt.savefig('output/16.jpg')
     plt.show()
     
 
 # visualization()
-get_segmented_image("../background.png", 2)
+get_segmented_image("../dataset/16.jpg", 4)
+
+
+# import os
+# directoryname = "../dataset/"
+# directory = os.fsencode(directoryname)
+    
+# for file in os.listdir(directory):
+#     filename = os.fsdecode(file)
+#     if filename.endswith("jpg"): 
+#         print(directoryname + filename)
+#         get_segmented_image(, 5)
+#         # print(os.path.join(directory, filename))
+        
 
 
 
