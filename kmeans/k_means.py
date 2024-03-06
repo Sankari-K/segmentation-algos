@@ -86,12 +86,12 @@ def get_segmented_image(image, k):
 
     segmented_image = np.reshape(X_segmented, (height, width, depth))
     plt.imshow(cv2.cvtColor(segmented_image, cv2.COLOR_BGR2RGB))
-    plt.savefig('output/16.jpg')
+    plt.savefig('output/30.jpg')
     plt.show()
     
 
 # visualization()
-get_segmented_image("../dataset/16.jpg", 4)
+get_segmented_image("../datasets/resized/30.jpg", 10)
 
 
 # import os
