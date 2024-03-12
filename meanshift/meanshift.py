@@ -25,7 +25,7 @@ def mean_shift(data, bandwidth=2, convergence_threshold=0.001, max_iterations=10
             old_point = new_point
             iteration += 1
         shifted_points[i] = old_point
-        print(f"Processed {i+1}/{len(data)} points")
+        if (i+1)%1000==0: print(f"Processed {i+1}/{len(data)} points")
     return shifted_points
 
 def visualization():
@@ -40,7 +40,7 @@ def visualization():
     plt.grid()
     plt.show()
 
-def get_segmented_image(image, bandwidth=5):
+def get_segmented_image(image, bandwidth=5,output_path='segmented_image.png'):
     image = cv2.imread(image)
     height, width, depth = image.shape
 
@@ -50,7 +50,16 @@ def get_segmented_image(image, bandwidth=5):
 
     segmented_image = np.reshape(shifted_points.astype(np.uint8), (height, width, depth))
     plt.imshow(cv2.cvtColor(segmented_image, cv2.COLOR_BGR2RGB))
-    plt.savefig('segmented_image1.png')
-    plt.show()
+    plt.savefig(output_path)
+    # plt.show()
 
-get_segmented_image("../dataset/01.jpg", bandwidth=25)
+import os
+for image in os.listdir('datasets/resized'):
+    path = 'datasets/resized/' + image
+    if image in os.listdir('meanshift/output/original'): 
+        print("Already done with", image)
+        continue #['01.jpg', '02.jpg', '03.jpg', '04.jpg', '05.jpg', '06.jpg', '07.jpg', '08.jpg', '09.jpg', '10.jpg', '11.jpg', '12.jpg', '13.jpg', '14.jpg', '15.jpg']
+    print(path)
+    print("Processing", image)
+    get_segmented_image(path, bandwidth=15, output_path=f'meanshift/output/original/{image}')
+    print("Done with", image)
