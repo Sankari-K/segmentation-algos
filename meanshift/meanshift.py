@@ -4,16 +4,55 @@ import matplotlib.pyplot as plt
 import cv2
 
 def euclidean_distance(x1, x2):
+    """Generates euclidean distance between two points
+
+    Args:
+        x1 (int): Point 1
+        x2 (int): Point 2
+
+    Returns:
+        float: Euclidean distance between the Points 1, 2
+    """
     return np.sqrt(np.sum((x1 - x2)**2))
 
 def gaussian_kernel(distance, bandwidth):
+    """Generates gaussian kernel
+
+    Args:
+        distance (int): distance between the cluster centre and point in question
+        bandwidth (int): Radius of the cluster
+
+    Returns:
+        float: Gaussian kernel
+    """
     return (1 / (bandwidth * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((distance / bandwidth))**2)
 
 def get_new_centroid(x, data, bandwidth):
+    """Generates new centroid, based on kernel density estimation
+
+    Args:
+        x (int): Point in question
+        data (List[int]): Image as an array
+        bandwidth (float): Bandwidth of the cluster
+
+    Returns:
+        _type_: _description_
+    """
     weights = gaussian_kernel(np.linalg.norm(data - x, axis=1), bandwidth)
     return np.sum(data * weights[:, np.newaxis], axis=0) / np.sum(weights)
 
 def mean_shift(data, bandwidth=2, convergence_threshold=0.001, max_iterations=100):
+    """The main mean shift algorithm
+
+    Args:
+        data (List[int]): The image as an array
+        bandwidth (int, optional): The width of each cluster. Bigger the bandwidth, lesser clusters generated. Defaults to 2.
+        convergence_threshold (float, optional): The value below which two clusters are converged. Defaults to 0.001.
+        max_iterations (int, optional): The number of iterastions that clustering is run. Defaults to 100.
+
+    Returns:
+        _type_: _description_
+    """
     shifted_points = data.copy()
     for i, point in enumerate(data):
         old_point = point
@@ -29,6 +68,8 @@ def mean_shift(data, bandwidth=2, convergence_threshold=0.001, max_iterations=10
     return shifted_points
 
 def visualization():
+    """Visualizes the clustering algorithm
+    """
     X, _ = make_blobs(n_samples=1000, n_features=2, centers=4)
 
     shifted_points = mean_shift(X)
@@ -41,6 +82,13 @@ def visualization():
     plt.show()
 
 def get_segmented_image(image, bandwidth=5,output_path='segmented_image.png'):
+    """Generates the segmented image from a 2D array
+
+    Args:
+        image (List[int]): The 2D array to be converted into an image
+        bandwidth (int, optional): The bandwidth value used in the clustering. Defaults to 5.
+        output_path (str, optional): The output image filepath. Include filename in path as well. Defaults to 'segmented_image.png'.
+    """
     image = cv2.imread(image)
     height, width, depth = image.shape
 
