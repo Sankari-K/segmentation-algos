@@ -5,6 +5,7 @@ from collections import defaultdict  # to store cluster information
 import matplotlib.pyplot as plt  # for plotting
 import random  # to initialize randomly generated clusters
 import cv2 # converts image to pixel values
+import time
 
 # select k centroids
 def get_initial_centroids(X, k):
@@ -86,24 +87,18 @@ def get_segmented_image(image, k):
 
     segmented_image = np.reshape(X_segmented, (height, width, depth))
     plt.imshow(cv2.cvtColor(segmented_image, cv2.COLOR_BGR2RGB))
-    plt.savefig('output/30.jpg')
+    # plt.savefig('example.jpg')
     plt.show()
     
 
 # visualization()
-get_segmented_image("../datasets/resized/30.jpg", 10)
+# start = time.time()
+get_segmented_image(f"../datasets/resized/16.jpg", 6)
+# end = time.time()
+# print(f"Total time: ", end - start)
 
 
-# import os
-# directoryname = "../dataset/"
-# directory = os.fsencode(directoryname)
-    
-# for file in os.listdir(directory):
-#     filename = os.fsdecode(file)
-#     if filename.endswith("jpg"): 
-#         print(directoryname + filename)
-#         get_segmented_image(, 5)
-#         # print(os.path.join(directory, filename))
+
         
 
 
